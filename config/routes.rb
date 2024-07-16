@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get '/users/:id/edit', to: 'users#edit', as: 'edit_user'
   post '/users', to: 'users#create'
   patch '/users/:id', to: 'users#update'
-  delete '/users/:id', to: 'users#delete'
+  delete '/users/:id', to: 'users#destroy'
+  post '/users/:id/logon', to: 'users#logon', as: 'user_logon'
+  delete '/logoff', to: 'users#logoff', as: 'user_logoff'
   
   resources :forums
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
