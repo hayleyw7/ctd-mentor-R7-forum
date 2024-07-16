@@ -1,0 +1,20 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Forums</h1>
+
+<div id="forums">
+  <% @forums.each do |forum| %>
+    <%= render forum %>
+    <p>
+      <%= link_to "Show this forum", forum %>
+    </p>
+  <% end %>
+</div>
+
+<div>
+  <% 5.times do |i| %>
+  <p><%= "iteration #{i}" %></p>
+  <% end %>
+</div>
+
+<%= link_to "New forum", new_forum_path %>
