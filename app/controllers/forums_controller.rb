@@ -65,6 +65,6 @@ class ForumsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def forum_params
-      params.require(:forum).permit(:forum_name)
+      params.require(:forum).permit(:forum_name, :description)
     end
 end
