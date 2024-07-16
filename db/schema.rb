@@ -10,12 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_16_003553) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_16_005241) do
   create_table "forums", force: :cascade do |t|
     t.string "forum_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "description"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "skill_level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
