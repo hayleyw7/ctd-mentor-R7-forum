@@ -58,7 +58,7 @@ class UsersController < ApplicationController
   end
 
   def logon
-    session[:current_user] = @user.id
+    session[:current_user] = { id: @user.id }
     redirect_to users_path, notice: "Welcome #{@user.name}. You are logged in."
   end
 
