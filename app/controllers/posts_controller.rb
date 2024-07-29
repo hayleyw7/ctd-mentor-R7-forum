@@ -8,8 +8,11 @@ class PostsController < ApplicationController
   def create
     # we create a new post for the current forum
     @post = @forum.posts.new(post_params)
-    @post.save
-    redirect_to @post, notice: "Your post was created."
+    if @post.save
+      redirect_to @post, notice: "Your post was created."
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def new
@@ -26,7 +29,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to @post, notice: "Your post was updated."
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
