@@ -4,12 +4,6 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
-
-    if (session[:current_user])
-      @current_user = User.find(session[:current_user])
-    else
-      @current_user = nil
-    end
   end
 
   # GET /users/1 or /users/1.json
@@ -64,7 +58,7 @@ class UsersController < ApplicationController
   end
 
   def logon
-    session[:current_user] = @user.id
+    session[:current_user] = { id: @user.id }
     redirect_to users_path, notice: "Welcome #{@user.name}. You are logged in."
   end
 
