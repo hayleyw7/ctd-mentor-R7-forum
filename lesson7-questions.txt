@@ -191,7 +191,7 @@ What two things are done in your code to prevent the risk?
 
 The routes for subscriptions are nested under the forum routes.
 
-A) How does this change the routes?
+How does this change the routes?
 
   "helper" to change url structure to reflect forums/subscriptions relationship
 
@@ -199,11 +199,11 @@ A) How does this change the routes?
     * Original: `GET /forums/:forum_id/subscriptions`
     * Nesting Helper: `forum_subscriptions_path(@forum)`
 
-B) What is the additional hash key and value that is passed in the params hash to the subscriptions controller as a result of this nesting?
+What is the additional hash key and value that is passed in the params hash to the subscriptions controller as a result of this nesting?
 
   `params[:forum_id]`
 
-C) Which routes are unaffected by the nesting?
+Which routes are unaffected by the nesting?
 
   ones w/o subscriptions (such as forum routes):
 
