@@ -1,61 +1,197 @@
 Questions for Lesson 6
 
-1. When you enable CRUD operations on a table in the database, you need to add four things
-to your Rails application.  When you generate a scaffold, all four are created.What are they?
+///////////////////////////////////////////////////////////////////////
 
+1.
 
+When you enable CRUD operations on a table in the database, you need to add four things to your Rails application. When you generate a scaffold, all four are created.
 
+What are they?
 
-2. When you specify a route in config/routes.rb, you need to include certain information.  What
-must be included? In addition, you may specify an additional parameter to create a variable
-that describes the route.  How do you do that? What variable is created?
+  A) Model
+  B) View
+  C) Controller
+  D) Routes
 
+///////////////////////////////////////////////////////////////////////
 
+2.
 
-3. What does the Rails db:migrate command do?
+When you specify a route in config/routes.rb, you need to include certain information.
 
+  Template:
+  `request 'path/:param', to: 'controller#action', as: 'route'`
 
+  Example:
+  `get 'posts/:id', to: 'posts#show', as: 'post'`
 
-4. What file do you look at to see the current database schema?
+What must be included?
 
+  A) Request (`GET`)
+  B) Path (`posts/:id`)
+  C) Controller (`posts`)
+  D) Action (`show`)
 
-5. What command shows the routes?
+In addition, you may specify an additional parameter to create a variable that describes the route.
 
+  E) Route (`post`)
 
-6. How can you start the Rails console? How can you do CRUD operations from the console?
+How do you do that?
 
+  Add `, as: 'route'`  
 
-7. What statements are in erb files that make them different from html files?  What are the
-two kinds of special statements, and how are they marked in the erb file? Where are they executed?
+What variable is created?
 
+  `post_path_url` as named route helper
 
-8. Consider this statement: @forum = Forum.new().  Why is Forum capitalized?  Why is @forum not
-capitalized? Why is the @ used?
+///////////////////////////////////////////////////////////////////////
 
+3.
 
+What does the Rails db:migrate command do?
 
-9. Consider these statements:
+  * Apply pending database migrations
+  * Update schema per migration file instructions
+  * Track schema version (to avoid multiple runs)
+
+///////////////////////////////////////////////////////////////////////
+
+4.
+
+What file do you look at to see the current database schema?
+
+  db/schema.rb
+
+///////////////////////////////////////////////////////////////////////
+
+5.
+
+What command shows the routes?
+
+  `rails routes`
+
+///////////////////////////////////////////////////////////////////////
+
+6.
+
+How can you start the Rails console?
+
+  `rails c`
+
+How can you do CRUD operations from the console?
+
+  ActiveRecord methods:
+    * Create - `Model.create(key: 'value')`
+    * Read - `Model.find(id)`
+    * Update - `Model.find(id).update(key: 'new value')`
+    * Delete - `Model.find(id).destroy`
+
+///////////////////////////////////////////////////////////////////////
+
+7.
+
+What statements are in erb files that make them different from html files?
+
+  Dynamic Ruby statements
+
+What are the two kinds of special statements, and how are they marked in the erb file?
+
+  * Output:
+    `<%= @controller_instance.key %>`
+
+  * Control flow:
+    ```
+    <% if ruby condition %>
+      <!-- HTML code -->
+    <% end %>
+    ```
+
+Where are they executed?
+
+  Server side
+
+///////////////////////////////////////////////////////////////////////
+
+8.
+
+Consider this statement: @forum = Forum.new().
+
+Why is Forum capitalized?
+
+  `Forum` = class
+
+Why is @forum not capitalized?
+
+  `@forum` = instance of class
+
+Why is the @ used?
+
+  makes instance variable, accessible only w/i defined instance
+
+///////////////////////////////////////////////////////////////////////
+
+9.
+
+Consider these statements:
 
 @forum = Forum.new(...)
-@forum =Forum.create(...)
+@forum = Forum.create(...)
 @forum.save(...)
 
-What is the difference between Forum.new() and Forum.create()?  Why can't you do Forum.save(...)?
+What is the difference between Forum.new() and Forum.create()?
+
+  * `Forum.new` - instantiate new `Forum` object w/o saving to db (need `@forum.save` to save)
+  * `Forum.create` - instantiate new `Forum` object AND save to db all at once
+
+Why can't you do Forum.save(...)?
+
+  need to create instance first (`save` is instance method, not class method)
+
+///////////////////////////////////////////////////////////////////////
+
+10.
+
+In the forums controller, you have a method called show:
+
+```
+def show
+end
+```
+
+This is an action method. It is an action method for only one reason: There is a route that points to it. But there's nothing in the method! It will do the right things because the default behavior does what is needed.
+
+What does the default behavior do?
+
+  * look for view template named show.html.erb folder with controller name
+  * assign instance var to view
+
+How does it know which forum to show?
+
+  The default behavior uses the params[:id] value to find the specific record to display. Rails uses this :id parameter to query the database and retrieve the appropriate Forum record.
+
+Whenever you have an action method, there is a hash called params that is passed to that method. And, in this case, the params hash has a value, params[:id].
+
+What is the value for this element of the hash?
 
 
-10. In the forums controller, you have a method called show:
+Default Behavior of the show Action
+What does the default behavior do?
 
-  def show
-  end
+The default behavior of the show action in a Rails controller is to look for a view template named show.html.erb (or another appropriate format) in the views folder corresponding to the controller. It also automatically assigns an instance variable to the view.
 
-This is an action method.  It is an action method for only one reason: There is a route
-that points to it.  But there's nothing in the method!  It will do the right things
-because the default behavior does what is needed.  What does the default behavior
-do?  How does it know which forum to show?  Whenever you have an action method, there
-is a hash called params that is passed to that method.  And, in this case, the params
-hash has a value, params[:id].  What is the value for this element of the hash? How
-did it get there?
+How does it know which forum to show?
 
+  The default behavior uses params[:id] to find and show the correct Forum record by looking it up in the database using that ID.
 
+What is the value for this element of the hash?
 
+  params[:id] (id from url) to find/display specific Forum record from db
 
+  * Record = single entry or row in db table that contains data for each table column
+    * Entry: single piece of data (or record) in db table
+    * Row: horizontal line in db table to represent single record
+    * Column: vertical line in db table to represent data type (ex: id or title)
+
+How did it get there?
+
+  populated from the URL params when route accessed
