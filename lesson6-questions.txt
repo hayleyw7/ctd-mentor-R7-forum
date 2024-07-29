@@ -9,7 +9,7 @@ When you enable CRUD operations on a table in the database, you need to add four
 What are they?
 
   A) Model
-  B) View
+  B) Migration
   C) Controller
   D) Routes
 
