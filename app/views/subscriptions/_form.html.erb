@@ -1,16 +1,28 @@
-<% if @subscription.id %>
-  <% url = subscription_path(@subscription) %>
+<% if subscription.id %>
+  <% url = subscription_path(subscription) %>
 <% else %>
-  <% url = forum_subscriptions_path(@forum) %>
+  <% url = forum_subscriptions_path(subscription.forum) %>
 <% end %>
 
-<%= form_with(model: @subscription, url: url) do |form| %>
+<%= form_with(model: subscription, url: url) do |form| %>
+  <% if subscription.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+
+      <ul>
+        <% subscription.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="field">
-    <%= form.label :priority %>
-    <%= form.number_field :priority, in: 1..10 %>
+    <%= form.label :priority, "Priority (required, minimum 1)" %>
+    <%= form.number_field :priority, min: 1, required: true, value: subscription.priority || 1 %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Create Subscription' %>
   </div>
 <% end %>

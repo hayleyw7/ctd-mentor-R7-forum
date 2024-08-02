@@ -4,11 +4,13 @@ class SubscriptionsController < ApplicationController
   before_action :set_subscription, only: [:show, :edit, :update, :destroy]
 
   def index
-    @subscriptions = Subscription.where(user_id: @current_user.id).includes(:forum).order(:priority)
+    @subscriptions = Subscription.where(user_id: @current_user.id)
+                                 .includes(:forum)
+                                 .order(:priority)
   end
 
   def new
-    @subscription = @forum.subscriptions.new
+    @subscription = @forum.subscriptions.new(priority: 1)
   end
 
   def create
