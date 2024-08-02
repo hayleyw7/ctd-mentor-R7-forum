@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_25_211845) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_02_231811) do
   create_table "forums", force: :cascade do |t|
     t.string "forum_name"
     t.datetime "created_at", null: false
@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_25_211845) do
     t.integer "priority"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["forum_id", "user_id"], name: "index_subscriptions_on_forum_id_and_user_id", unique: true
     t.index ["forum_id"], name: "index_subscriptions_on_forum_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :set_current_user
 
-private
+  private
 
   def set_current_user
     if session[:current_user]
@@ -17,6 +17,12 @@ private
       end
     else
       @current_user = nil
+    end
+  end
+
+  def check_logon
+    unless @current_user
+      redirect_to forums_path, notice: "You can't access this page unless you are logged in."
     end
   end
 end

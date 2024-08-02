@@ -15,6 +15,6 @@
   <%= @subscription.priority %>
 </p>
 
-<%= link_to 'Edit', edit_subscription_path(@subscription) %> |
-<%= link_to 'Back', forums_path %> |
-<%= link_to 'Destroy', @subscription, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Edit', edit_forum_subscription_path(@subscription.forum, @subscription) %> |
+<%= link_to 'Back', forum_subscriptions_path(@subscription.forum) %> |
+<%= link_to 'Destroy', [@subscription.forum, @subscription], method: :delete, data: { confirm: 'Are you sure?' } %>
