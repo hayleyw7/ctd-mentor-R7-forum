@@ -1,27 +1,27 @@
 <%= form_with(model: forum) do |form| %>
   <% if forum.errors.any? %>
-    <div style="color: red">
+    <div id="error_explanation">
       <h2><%= pluralize(forum.errors.count, "error") %> prohibited this forum from being saved:</h2>
 
       <ul>
-        <% forum.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% forum.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :forum_name, style: "display: block" %>
-    <%= form.text_field :forum_name %>
+  <div class="field">
+    <%= form.label :forum_name, "Name" %>
+    <%= form.text_field :forum_name, required: true %>
   </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
+  <div class="field">
+    <%= form.label :description, "Description" %>
+    <%= form.text_area :description, required: true %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="actions">
+    <%= form.submit 'Create Forum' %>
   </div>
 <% end %>
